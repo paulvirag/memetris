@@ -1,0 +1,1 @@
+start npx onchange "**/*.js" -- npx prettier --write {{changed}}
