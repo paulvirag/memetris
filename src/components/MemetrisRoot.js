@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 
 import MemetrisGrid from './MemetrisGrid';
+import MemetrisControls from './MemetrisControls';
 
 function MemetrisRoot() {
   const [state, setState] = useState([]);
@@ -17,6 +18,7 @@ function MemetrisRoot() {
   return (
     <div id="root">
       <MemetrisGrid state={state} />
+      <MemetrisControls />
     </div>
   );
 }

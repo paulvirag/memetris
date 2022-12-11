@@ -17,8 +17,13 @@ app
 
 server.listen(PORT, () => console.log(`Server started on localhost:${PORT}`));
 
-const game = new Game();
+const onChange = () => io.emit('gamestate', game.grid());
+const game = new Game(onChange);
+game.setListener(onChange);
 
-setInterval(() => {
-  io.emit('gamestate', game.grid());
-}, 1000);
+io.on('connection', socket => {
+  socket.on('a', () => game.playerRotate());
+  socket.on('left', () => game.playerLeft());
+  socket.on('right', () => game.playerRight());
+  socket.on('down', () => game.playerDown());
+});

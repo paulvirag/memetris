@@ -42,6 +42,10 @@ class Game {
     this.newGame();
   }
 
+  setListener(onChange) {
+    this._onChange = onChange;
+  }
+
   newGame() {
     this._grid = Array(ROWS)
       .fill(0)
@@ -56,17 +60,55 @@ class Game {
     this._spawnPiece();
   }
 
+  playerLeft() {
+    this._move({
+      ...this._piece,
+      col: this._piece.col - 1,
+    });
+    this._onChange && this._onChange();
+  }
+
+  playerRight() {
+    this._move({
+      ...this._piece,
+      col: this._piece.col + 1,
+    });
+    this._onChange && this._onChange();
+  }
+
+  playerRotate() {
+    this._move({
+      ...this._piece,
+      ori: (this._piece.ori + 1) % 4,
+    });
+    this._onChange && this._onChange();
+  }
+
+  playerDown() {
+    while (this.downOne()) {}
+    this._onChange && this._onChange();
+  }
+
   gravityDown() {
-    const newPiece = {
+    this.downOne();
+    this._onChange && this._onChange();
+  }
+
+  downOne() {
+    const moved = this._move({
       ...this._piece,
       row: this._piece.row + 1,
-    };
+    });
+    if (!moved) {
+      this._landPiece();
+    }
+    return moved;
+  }
 
+  _move(newPiece) {
     const canPlace = place(copy(this._grid), newPiece);
     if (canPlace) {
       this._piece = newPiece;
-    } else {
-      this._landPiece();
     }
 
     return canPlace;
@@ -102,6 +144,7 @@ class Game {
         this._gameState.currentIntervalMs
       ),
     };
+    this._onChange && this._onChange();
   }
 
   _landPiece() {
