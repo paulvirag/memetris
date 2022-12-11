@@ -7420,21 +7420,35 @@
         t = n.n(e),
         r = n(935),
         l = n.n(r);
-      const i = function () {
-        const [n, r] = (0, e.useState)([]);
-        return (
-          (0, e.useEffect)(() => {
-            const e = window.io();
-            return e.on('gamestate', e => r(e)), () => e.off('gamestate');
-          }, []),
-          t().createElement(
+      const i = function ({ state: e }) {
+          return t().createElement(
             'div',
-            null,
-            n.map(e => t().createElement('div', null, e.join('')))
-          )
-        );
-      };
-      let a = document.querySelector('#container');
-      l().render(t().createElement(i, null), a);
+            { className: 'grid' },
+            e.map((e, n) =>
+              t().createElement(
+                'div',
+                { className: 'grid-row', key: n },
+                e.map((e, n) =>
+                  t().createElement('div', {
+                    className: 'grid-block color' + e,
+                    key: n,
+                  })
+                )
+              )
+            )
+          );
+        },
+        a = function () {
+          const [n, r] = (0, e.useState)([]);
+          return (
+            (0, e.useEffect)(() => {
+              const e = window.io();
+              return e.on('gamestate', e => r(e)), () => e.off('gamestate');
+            }, []),
+            t().createElement(i, { state: n })
+          );
+        };
+      let o = document.querySelector('#container');
+      l().render(t().createElement(a, null), o);
     })();
 })();

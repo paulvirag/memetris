@@ -1,6 +1,4 @@
-const ROWS = 20;
-const COLS = 10;
-
+const { ROWS, COLS } = require('../xplat/constants');
 const pieces = [
   [
     [1, 1],
@@ -25,17 +23,6 @@ const pieces = [
     [7, 7, 7],
     [0, 7],
   ], // T
-];
-
-const colors = [
-  'transparent',
-  '#fffc43',
-  '#00e0fc',
-  '#ff0d15',
-  '#51ab37',
-  '#ff8128',
-  '#ff4daf',
-  '#9f1687',
 ];
 
 class Game {

@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 
+import MemetrisGrid from './MemetrisGrid';
+
 function MemetrisRoot() {
   const [state, setState] = useState([]);
 
@@ -12,13 +14,7 @@ function MemetrisRoot() {
     return () => socket.off('gamestate');
   }, []);
 
-  return (
-    <div>
-      {state.map(row => (
-        <div>{row.join('')}</div>
-      ))}
-    </div>
-  );
+  return <MemetrisGrid state={state} />;
 }
 
 export default MemetrisRoot;

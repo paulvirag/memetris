@@ -14,12 +14,6 @@ body {
   width: 100%;
 }
 
-button {
-  background-color: #505050;
-  border: none;
-  padding: 5px 10px;
-}
-
 /*
   Page layout
 */
@@ -28,4 +22,54 @@ button {
   height: 100%;
   max-height: 100%;
   width: 100%;
+}
+
+/*
+  Game grid
+*/
+
+.grid {
+  border: 1px solid black;
+}
+
+.grid-row {
+  display: flex;
+}
+
+.grid-block {
+  height: 20px;
+  width: 20px;
+  border: 1px solid black;
+}
+
+/*
+  Block colors
+*/
+
+.color1 {
+  background-color: #fffc43;
+}
+
+.color2 {
+  background-color: #00e0fc;
+}
+
+.color3 {
+  background-color: #ff0d15;
+}
+
+.color4 {
+  background-color: #51ab37;
+}
+
+.color5 {
+  background-color: #ff8128;
+}
+
+.color6 {
+  background-color: #ff4daf;
+}
+
+.color7 {
+  background-color: #9f1687;
 }
