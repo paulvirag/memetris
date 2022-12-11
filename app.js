@@ -22,8 +22,9 @@ const game = new Game(onChange);
 game.setListener(onChange);
 
 io.on('connection', socket => {
-  socket.on('a', () => game.playerRotate());
-  socket.on('left', () => game.playerLeft());
-  socket.on('right', () => game.playerRight());
-  socket.on('down', () => game.playerDown());
+  socket.on('a', () => game.a());
+  socket.on('left', () => game.left());
+  socket.on('right', () => game.right());
+  socket.on('down', () => game.down());
+  socket.on('up', () => game.up());
 });

@@ -7439,16 +7439,30 @@
           );
         },
         a = function () {
-          const e = e => {
-            console.log(e), window.io().emit(e);
-          };
+          const e = e => window.io().emit(e);
           return t().createElement(
             'div',
-            { className: 'controls' },
-            t().createElement('button', { onClick: () => e('left') }, 'Left'),
-            t().createElement('button', { onClick: () => e('right') }, 'Right'),
-            t().createElement('button', { onClick: () => e('a') }, 'A'),
-            t().createElement('button', { onClick: () => e('down') }, 'Down')
+            { className: 'control-bar' },
+            t().createElement(
+              'button',
+              { className: 'control-button', onClick: () => e('left') },
+              'Left'
+            ),
+            t().createElement(
+              'button',
+              { className: 'control-button', onClick: () => e('right') },
+              'Right'
+            ),
+            t().createElement(
+              'button',
+              { className: 'control-button', onClick: () => e('a') },
+              'A'
+            ),
+            t().createElement(
+              'button',
+              { className: 'control-button', onClick: () => e('down') },
+              'Down'
+            )
           );
         },
         o = function () {

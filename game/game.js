@@ -7,7 +7,11 @@ const LINES_PER_LEVEL = 10;
 
 const copy = piece => piece.map(row => [...row]);
 const rotate = piece =>
-  piece.map((row, i) => row.map((v, j) => piece[j][piece.length - i - 1]));
+  piece.map((row, i) => row.map((_, j) => piece[j][piece.length - i - 1]));
+
+function tryPlace(grid, piece) {
+  return place(copy(grid), piece);
+}
 
 function place(grid, piece) {
   const { row, col, ori } = piece;
@@ -39,62 +43,66 @@ function place(grid, piece) {
 
 class Game {
   constructor() {
-    this.newGame();
+    this._newGame();
   }
+
+  //
+  // API
+  //
 
   setListener(onChange) {
     this._onChange = onChange;
   }
 
-  newGame() {
-    this._grid = Array(ROWS)
-      .fill(0)
-      .map(_ => Array(COLS).fill(0));
-    this._gameState = {
-      currentIntervalMs: START_INTERVAL_MS,
-      level: 1,
-      lines: 0,
-      score: 0,
-    };
-
-    this._spawnPiece();
+  grid() {
+    const grid = copy(this._grid);
+    place(grid, this._piece);
+    return grid;
   }
 
-  playerLeft() {
+  //
+  // Controls
+  //
+
+  left() {
     this._move({
       ...this._piece,
       col: this._piece.col - 1,
     });
-    this._onChange && this._onChange();
+    this._onChange?.();
   }
 
-  playerRight() {
+  right() {
     this._move({
       ...this._piece,
       col: this._piece.col + 1,
     });
-    this._onChange && this._onChange();
+    this._onChange?.();
   }
 
-  playerRotate() {
+  a() {
     this._move({
       ...this._piece,
       ori: (this._piece.ori + 1) % 4,
     });
-    this._onChange && this._onChange();
+    this._onChange?.();
   }
 
-  playerDown() {
-    while (this.downOne()) {}
-    this._onChange && this._onChange();
+  up() {
+    while (this._downOne()) {}
+    this._onChange?.();
   }
 
-  gravityDown() {
-    this.downOne();
-    this._onChange && this._onChange();
+  down() {
+    this._downOne();
+    this._onChange?.();
   }
 
-  downOne() {
+  //
+  // Movement helpers
+  //
+
+  _downOne() {
     const moved = this._move({
       ...this._piece,
       row: this._piece.row + 1,
@@ -106,7 +114,7 @@ class Game {
   }
 
   _move(newPiece) {
-    const canPlace = place(copy(this._grid), newPiece);
+    const canPlace = tryPlace(this._grid, newPiece);
     if (canPlace) {
       this._piece = newPiece;
     }
@@ -114,10 +122,22 @@ class Game {
     return canPlace;
   }
 
-  grid() {
-    const grid = copy(this._grid);
-    place(grid, this._piece);
-    return grid;
+  //
+  // Game state management helpers
+  //
+
+  _newGame() {
+    this._grid = Array(ROWS)
+      .fill(0)
+      .map(_ => Array(COLS).fill(0));
+    this._gameState = {
+      currentIntervalMs: START_INTERVAL_MS,
+      level: 1,
+      lines: 0,
+      score: 0,
+    };
+
+    this._spawnPiece();
   }
 
   _spawnPiece() {
@@ -132,19 +152,19 @@ class Game {
       ori: 0,
     };
 
-    if (!place(copy(this._grid), piece)) {
-      this.newGame();
+    if (!tryPlace(this._grid, piece)) {
+      this._newGame();
       return;
     }
 
     this._piece = {
       ...piece,
       interval: setInterval(
-        () => this.gravityDown(),
+        () => this.down(),
         this._gameState.currentIntervalMs
       ),
     };
-    this._onChange && this._onChange();
+    this._onChange?.();
   }
 
   _landPiece() {
