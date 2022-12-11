@@ -16,9 +16,19 @@ app
 
 server.listen(PORT, () => console.log(`Server started on localhost:${PORT}`));
 
+const clients = [];
+let num = 0;
+
+setInterval(() => {
+  ++num;
+  clients.forEach(client => client.emit('hello', num));
+}, 5000);
+
 io.on('connection', socket => {
-  console.log('a user connected');
+  clients.push(socket);
   socket.on('disconnect', () => {
-    console.log('user disconnected');
+    const index = clients.indexOf(socket);
+    clients[index] = clients[clients.length - 1];
+    clients.pop();
   });
 });

@@ -7421,7 +7421,12 @@
         r = n(935),
         l = n.n(r);
       const i = function () {
-        return t().createElement('div', null, 'hello from react');
+        return (
+          (0, e.useEffect)(() => {
+            window.io().on('hello', e => console.log(e));
+          }, []),
+          t().createElement('div', null, 'hello from react')
+        );
       };
       let a = document.querySelector('#container');
       l().render(t().createElement(i, null), a);
