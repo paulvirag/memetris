@@ -1,15 +1,24 @@
 'use strict';
 
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function MemetrisRoot() {
+  const [state, setState] = useState([]);
+
   useEffect(() => {
     const socket = window.io();
-    socket.on('hello', msg => console.log(msg));
+    socket.on('gamestate', msg => setState(msg));
 
-    return () => socket.off('hello');
+    return () => socket.off('gamestate');
   }, []);
-  return <div>hello from react</div>;
+
+  return (
+    <div>
+      {state.map(row => (
+        <div>{row.join('')}</div>
+      ))}
+    </div>
+  );
 }
 
 export default MemetrisRoot;

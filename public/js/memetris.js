@@ -7421,11 +7421,17 @@
         r = n(935),
         l = n.n(r);
       const i = function () {
+        const [n, r] = (0, e.useState)([]);
         return (
           (0, e.useEffect)(() => {
-            window.io().on('hello', e => console.log(e));
+            const e = window.io();
+            return e.on('gamestate', e => r(e)), () => e.off('gamestate');
           }, []),
-          t().createElement('div', null, 'hello from react')
+          t().createElement(
+            'div',
+            null,
+            n.map(e => t().createElement('div', null, e.join('')))
+          )
         );
       };
       let a = document.querySelector('#container');

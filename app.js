@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const { Server } = require('socket.io');
+const Game = require('./game/game');
 
 const PORT = process.env.PORT || 5001;
 
@@ -16,19 +17,9 @@ app
 
 server.listen(PORT, () => console.log(`Server started on localhost:${PORT}`));
 
-const clients = [];
-let num = 0;
+const game = new Game();
 
 setInterval(() => {
-  ++num;
-  clients.forEach(client => client.emit('hello', num));
+  game.randomPiece();
+  io.emit('gamestate', game.grid());
 }, 5000);
-
-io.on('connection', socket => {
-  clients.push(socket);
-  socket.on('disconnect', () => {
-    const index = clients.indexOf(socket);
-    clients[index] = clients[clients.length - 1];
-    clients.pop();
-  });
-});
