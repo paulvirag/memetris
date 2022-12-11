@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const { Server } = require('socket.io');
-const Game = require('./game/game');
+const Game = require('./game/Game');
 
 const PORT = process.env.PORT || 5001;
 
@@ -20,6 +20,5 @@ server.listen(PORT, () => console.log(`Server started on localhost:${PORT}`));
 const game = new Game();
 
 setInterval(() => {
-  game.randomPiece();
   io.emit('gamestate', game.grid());
-}, 5000);
+}, 1000);

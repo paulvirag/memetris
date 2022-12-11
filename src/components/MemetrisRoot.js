@@ -14,7 +14,11 @@ function MemetrisRoot() {
     return () => socket.off('gamestate');
   }, []);
 
-  return <MemetrisGrid state={state} />;
+  return (
+    <div id="root">
+      <MemetrisGrid state={state} />
+    </div>
+  );
 }
 
 export default MemetrisRoot;

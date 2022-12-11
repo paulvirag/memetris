@@ -7445,7 +7445,11 @@
               const e = window.io();
               return e.on('gamestate', e => r(e)), () => e.off('gamestate');
             }, []),
-            t().createElement(i, { state: n })
+            t().createElement(
+              'div',
+              { id: 'root' },
+              t().createElement(i, { state: n })
+            )
           );
         };
       let o = document.querySelector('#container');
