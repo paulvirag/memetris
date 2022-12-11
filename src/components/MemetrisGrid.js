@@ -2,10 +2,10 @@
 
 import React from 'react';
 
-function MemetrisGrid({ state }) {
+function MemetrisGrid({ grid }) {
   return (
     <div className="grid">
-      {state.map((row, i) => (
+      {grid.map((row, i) => (
         <div className="grid-row" key={i}>
           {row.map((v, j) => (
             <div className={'grid-block color' + v} key={j} />

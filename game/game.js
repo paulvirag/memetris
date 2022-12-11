@@ -3,7 +3,7 @@ const pieces = require('./pieces');
 
 const START_INTERVAL_MS = 900;
 const INTERVAL_CHANGE = 0.9;
-const LINES_PER_LEVEL = 10;
+const LINES_PER_LEVEL = 8;
 const LINES_TO_POINTS = [0, 40, 100, 300, 1200];
 
 const copy = piece => piece.map(row => [...row]);

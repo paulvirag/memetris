@@ -24,14 +24,13 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 }
 
-#root {
+.root {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: stretch;
 }
 
 /*
@@ -82,6 +81,14 @@ body {
 
 .color7 {
   background-color: #9f1687;
+}
+
+/*
+  Score pane
+*/
+
+.score-pane {
+  margin-left: 20px;
 }
 
 /*

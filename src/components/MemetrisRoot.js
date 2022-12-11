@@ -4,6 +4,9 @@ import React, { useState, useEffect, useMemo } from 'react';
 
 import MemetrisGrid from './MemetrisGrid';
 import MemetrisControls from './MemetrisControls';
+import MemetrisScore from './MemetrisScore';
+
+const DEBUG_CONTROLS = true;
 
 function MemetrisRoot() {
   const [state, setState] = useState();
@@ -19,10 +22,13 @@ function MemetrisRoot() {
   }
 
   return (
-    <div id="root">
-      <MemetrisGrid state={state.grid} />
-      <MemetrisControls socket={socket} />
-    </div>
+    <>
+      <div className="root">
+        <MemetrisGrid grid={state.grid} />
+        <MemetrisScore state={state} />
+      </div>
+      {DEBUG_CONTROLS && <MemetrisControls socket={socket} />}
+    </>
   );
 }
 
