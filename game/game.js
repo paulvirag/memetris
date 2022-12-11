@@ -4,6 +4,7 @@ const pieces = require('./pieces');
 const START_INTERVAL_MS = 900;
 const INTERVAL_CHANGE = 0.9;
 const LINES_PER_LEVEL = 10;
+const LINES_TO_POINTS = [0, 40, 100, 300, 1200];
 
 const copy = piece => piece.map(row => [...row]);
 const rotate = piece =>
@@ -54,10 +55,14 @@ class Game {
     this._onChange = onChange;
   }
 
-  grid() {
+  state() {
     const grid = copy(this._grid);
     place(grid, this._piece);
-    return grid;
+
+    return {
+      ...this._gameState,
+      grid,
+    };
   }
 
   //
@@ -172,7 +177,28 @@ class Game {
     clearInterval(this._piece.interval);
     this._piece = null;
 
+    this._clearLines();
     this._spawnPiece();
+  }
+
+  _clearLines() {
+    this._grid = this._grid.filter(row => Math.min(...row) === 0);
+    const clearedLines = ROWS - this._grid.length;
+
+    const newLines = this._gameState.lines + clearedLines;
+    const newLevel = Math.floor(newLines / LINES_PER_LEVEL) + 1;
+    this._gameState = {
+      currentIntervalMs:
+        START_INTERVAL_MS * Math.pow(INTERVAL_CHANGE, newLevel - 1),
+      level: newLevel,
+      lines: newLines,
+      score: this._gameState.score + LINES_TO_POINTS[clearedLines],
+    };
+
+    this._grid = Array(clearedLines)
+      .fill(0)
+      .map(_ => Array(COLS).fill(0))
+      .concat(this._grid);
   }
 }
 

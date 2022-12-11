@@ -17,7 +17,7 @@ app
 
 server.listen(PORT, () => console.log(`Server started on localhost:${PORT}`));
 
-const onChange = () => io.emit('gamestate', game.grid());
+const onChange = () => io.emit('gamestate', game.state());
 const game = new Game(onChange);
 game.setListener(onChange);
 
