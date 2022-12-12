@@ -1,8 +1,14 @@
+const DEFAULT_POOL = ['left', 'right', 'down', 'a'];
+
 class Controller {
   constructor() {
-    this._pool = ['left', 'right', 'down', 'a'];
+    this._pool = [...DEFAULT_POOL];
     this._clients = new Map();
     this._queue = [];
+  }
+
+  setListener(onChange) {
+    this._onChange = onChange;
   }
 
   connect(socket) {
@@ -31,6 +37,10 @@ class Controller {
     }
   }
 
+  state() {
+    return DEFAULT_POOL.filter(x => !this._pool.includes(x));
+  }
+
   _assign(socket) {
     const button = this._pool[Math.floor(Math.random() * this._pool.length)];
 
@@ -38,11 +48,13 @@ class Controller {
     this._clients.set(button, socket);
 
     socket.emit('assign', button);
+    this._onChange?.();
   }
 
   _unassign(button) {
     this._clients.delete(button);
     this._pool.push(button);
+    this._onChange?.();
   }
 }
 

@@ -2,20 +2,24 @@
 
 import React from 'react';
 
-function MemetrisScore({ state }) {
+function MemetrisScore({ state, controllerState }) {
   const { score, level, lines, leaderboard } = state;
 
   return (
     <div className="score-pane">
-      <div className="score-section">
-        <h1>Score</h1>
-        <h2>{score}</h2>
-        <h1>Level</h1>
-        <h2>{level}</h2>
-        <h1>Lines</h1>
-        <h2>{lines}</h2>
+      <div>
+        <h2>Score</h2>
+        <h3>{score}</h3>
+        <h2>Level</h2>
+        <h3>{level}</h3>
+        <h2>Lines</h2>
+        <h3>{lines}</h3>
       </div>
-      <div className="score-section">
+      <div>
+        <h3>Inputs assigned</h3>
+        {controllerState?.join(', ')}
+      </div>
+      <div className="score-leaderboard-section">
         <h2>High scores</h2>
         {leaderboard.map((v, i) => (
           <p key={i}>

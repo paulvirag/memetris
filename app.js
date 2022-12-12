@@ -19,11 +19,17 @@ app
 
 server.listen(PORT, () => console.log(`Server started on localhost:${PORT}`));
 
-const onChange = () => io.emit('gamestate', game.state());
-const game = new Game(onChange);
+const onChange = () =>
+  io.emit('gamestate', {
+    game: game?.state(),
+    controller: controller?.state(),
+  });
+
+const game = new Game();
 game.setListener(onChange);
 
 const controller = new Controller();
+controller.setListener(onChange);
 
 io.on('connection', socket => {
   socket.on('requestbutton', () => controller.connect(socket));
