@@ -5,6 +5,7 @@ const START_INTERVAL_MS = 900;
 const INTERVAL_CHANGE = 0.9;
 const LINES_PER_LEVEL = 8;
 const LINES_TO_POINTS = [0, 40, 100, 300, 1200];
+const MAX_LEADERBOARD_SIZE = 3;
 
 const copy = piece => piece.map(row => [...row]);
 const rotate = piece =>
@@ -44,6 +45,7 @@ function place(grid, piece) {
 
 class Game {
   constructor() {
+    this._leaderboard = [];
     this._newGame();
   }
 
@@ -62,6 +64,7 @@ class Game {
     return {
       ...this._gameState,
       grid,
+      leaderboard: this._leaderboard,
     };
   }
 
@@ -132,6 +135,14 @@ class Game {
   //
 
   _newGame() {
+    const prevScore = this._gameState?.score;
+    if (prevScore > 0) {
+      this._leaderboard = this._leaderboard
+        .concat([prevScore])
+        .sort((a, b) => b - a)
+        .slice(0, MAX_LEADERBOARD_SIZE);
+    }
+
     this._grid = Array(ROWS)
       .fill(0)
       .map(_ => Array(COLS).fill(0));

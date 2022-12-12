@@ -89,6 +89,13 @@ body {
 
 .score-pane {
   margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.score-section {
+  min-height: 200px;
 }
 
 /*
