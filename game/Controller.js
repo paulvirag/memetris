@@ -1,10 +1,12 @@
 const DEFAULT_POOL = ['left', 'right', 'down', 'a'];
+const EXPIRE_INTERVAL_MS = 3000;
 
 class Controller {
   constructor() {
     this._pool = [...DEFAULT_POOL];
     this._clients = new Map();
     this._queue = [];
+    setInterval(() => this._expireClients(), EXPIRE_INTERVAL_MS);
   }
 
   setListener(onChange) {
@@ -55,6 +57,13 @@ class Controller {
     this._clients.delete(button);
     this._pool.push(button);
     this._onChange?.();
+  }
+
+  _expireClients() {
+    const expired = [...this._clients.values()].filter(
+      socket => !socket.connected
+    );
+    expired.forEach(socket => socket.disconnect());
   }
 }
 
