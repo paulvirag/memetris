@@ -8,6 +8,7 @@ function MemetrisScore({ state, controllerState }) {
   return (
     <div className="score-pane">
       <div>
+        <audio src="/sounds/tetris.m4a" autoplay loop controls="none"></audio>
         <h2>Score</h2>
         <h3>{score}</h3>
         <h2>Level</h2>

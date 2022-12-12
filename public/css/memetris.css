@@ -33,6 +33,11 @@ body {
   align-items: stretch;
 }
 
+audio {
+  height: 30px;
+  width: 100px;
+}
+
 /*
   Game grid
 */
