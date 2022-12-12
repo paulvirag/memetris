@@ -11,7 +11,7 @@ function MemetrisRoot() {
   return window.location.href.includes('spectate') ? (
     <MemetrisSpectate socket={socket} />
   ) : (
-    <MemetrisPlay socket={socket} button="left" />
+    <MemetrisPlay socket={socket} />
   );
 }
 

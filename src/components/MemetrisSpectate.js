@@ -6,7 +6,7 @@ import MemetrisGrid from './MemetrisGrid';
 import MemetrisControls from './MemetrisControls';
 import MemetrisScore from './MemetrisScore';
 
-const DEBUG_CONTROLS = true;
+const DEBUG_CONTROLS = false;
 
 function MemetrisSpectate({ socket }) {
   const [state, setState] = useState();

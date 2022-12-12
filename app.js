@@ -3,6 +3,7 @@ const path = require('path');
 const http = require('http');
 const { Server } = require('socket.io');
 const Game = require('./game/Game');
+const Controller = require('./game/Controller');
 
 const PORT = process.env.PORT || 5001;
 
@@ -22,7 +23,12 @@ const onChange = () => io.emit('gamestate', game.state());
 const game = new Game(onChange);
 game.setListener(onChange);
 
+const controller = new Controller();
+
 io.on('connection', socket => {
+  socket.on('requestbutton', () => controller.connect(socket));
+  socket.on('disconnect', () => controller.disconnect(socket));
+
   socket.on('a', () => game.a());
   socket.on('left', () => game.left());
   socket.on('right', () => game.right());
