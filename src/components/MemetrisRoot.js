@@ -1,34 +1,17 @@
 'use strict';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
-import MemetrisGrid from './MemetrisGrid';
-import MemetrisControls from './MemetrisControls';
-import MemetrisScore from './MemetrisScore';
-
-const DEBUG_CONTROLS = true;
+import MemetrisSpectate from './MemetrisSpectate';
+import MemetrisPlay from './MemetrisPlay';
 
 function MemetrisRoot() {
-  const [state, setState] = useState();
   const socket = useMemo(() => window.io(), []);
 
-  useEffect(() => {
-    socket.on('gamestate', v => setState(v));
-    return () => socket.off('gamestate');
-  }, [socket]);
-
-  if (state == null) {
-    return null;
-  }
-
-  return (
-    <>
-      <div className="root">
-        <MemetrisGrid grid={state.grid} />
-        <MemetrisScore state={state} />
-      </div>
-      {DEBUG_CONTROLS && <MemetrisControls socket={socket} />}
-    </>
+  return window.location.href.includes('spectate') ? (
+    <MemetrisSpectate socket={socket} />
+  ) : (
+    <MemetrisPlay socket={socket} button="left" />
   );
 }
 

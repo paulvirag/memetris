@@ -1,6 +1,7 @@
-const { ROWS, COLS } = require('../xplat/constants');
 const pieces = require('./pieces');
 
+const ROWS = 20;
+const COLS = 10;
 const START_INTERVAL_MS = 900;
 const INTERVAL_CHANGE = 0.9;
 const LINES_PER_LEVEL = 8;

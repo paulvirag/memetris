@@ -11,8 +11,9 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 app
-  .use('/index', express.static('views/index.html'))
-  .get('/', (req, res, next) => res.redirect('/index'))
+  .use('/play', express.static('views/index.html'))
+  .use('/spectate', express.static('views/index.html'))
+  .get('/', (req, res, next) => res.redirect('/play'))
   .use(express.static(path.join(__dirname, 'public')));
 
 server.listen(PORT, () => console.log(`Server started on localhost:${PORT}`));

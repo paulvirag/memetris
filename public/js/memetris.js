@@ -43,6 +43,23 @@
         /***/
       },
 
+    /***/ './src/components/MemetrisPlay.js':
+      /*!****************************************!*\
+  !*** ./src/components/MemetrisPlay.js ***!
+  \****************************************/
+      /***/ (
+        __unused_webpack_module,
+        __webpack_exports__,
+        __webpack_require__
+      ) => {
+        'use strict';
+        eval(
+          '__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n\n\n\nconst caps = button => button[0].toUpperCase() + button.substr(1);\nfunction MemetrisPlay({\n  socket,\n  button\n}) {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {\n    className: "control-bar"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {\n    className: "control-button",\n    onClick: () => socket.emit(button)\n  }, caps(button)));\n}\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MemetrisPlay);\n\n//# sourceURL=webpack://memetris/./src/components/MemetrisPlay.js?'
+        );
+
+        /***/
+      },
+
     /***/ './src/components/MemetrisRoot.js':
       /*!****************************************!*\
   !*** ./src/components/MemetrisRoot.js ***!
@@ -54,7 +71,7 @@
       ) => {
         'use strict';
         eval(
-          '__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _MemetrisGrid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MemetrisGrid */ "./src/components/MemetrisGrid.js");\n/* harmony import */ var _MemetrisControls__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MemetrisControls */ "./src/components/MemetrisControls.js");\n/* harmony import */ var _MemetrisScore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MemetrisScore */ "./src/components/MemetrisScore.js");\n\n\n\n\n\n\nconst DEBUG_CONTROLS = true;\nfunction MemetrisRoot() {\n  const [state, setState] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)();\n  const socket = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => window.io(), []);\n  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {\n    socket.on(\'gamestate\', v => setState(v));\n    return () => socket.off(\'gamestate\');\n  }, [socket]);\n  if (state == null) {\n    return null;\n  }\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {\n    className: "root"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_MemetrisGrid__WEBPACK_IMPORTED_MODULE_1__["default"], {\n    grid: state.grid\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_MemetrisScore__WEBPACK_IMPORTED_MODULE_3__["default"], {\n    state: state\n  })), DEBUG_CONTROLS && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_MemetrisControls__WEBPACK_IMPORTED_MODULE_2__["default"], {\n    socket: socket\n  }));\n}\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MemetrisRoot);\n\n//# sourceURL=webpack://memetris/./src/components/MemetrisRoot.js?'
+          '__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _MemetrisSpectate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MemetrisSpectate */ "./src/components/MemetrisSpectate.js");\n/* harmony import */ var _MemetrisPlay__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MemetrisPlay */ "./src/components/MemetrisPlay.js");\n\n\n\n\n\nfunction MemetrisRoot() {\n  const socket = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => window.io(), []);\n  return window.location.href.includes(\'spectate\') ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_MemetrisSpectate__WEBPACK_IMPORTED_MODULE_1__["default"], {\n    socket: socket\n  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_MemetrisPlay__WEBPACK_IMPORTED_MODULE_2__["default"], {\n    socket: socket,\n    button: "left"\n  });\n}\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MemetrisRoot);\n\n//# sourceURL=webpack://memetris/./src/components/MemetrisRoot.js?'
         );
 
         /***/
@@ -72,6 +89,23 @@
         'use strict';
         eval(
           '__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n\n\n\nfunction MemetrisScore({\n  state\n}) {\n  const {\n    score,\n    level,\n    lines,\n    leaderboard\n  } = state;\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {\n    className: "score-pane"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {\n    className: "score-section"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Score"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, score), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Level"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, level), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Lines"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, lines)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {\n    className: "score-section"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "High scores"), leaderboard.map((v, i) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {\n    key: i\n  }, i + 1, ". ", v))));\n}\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MemetrisScore);\n\n//# sourceURL=webpack://memetris/./src/components/MemetrisScore.js?'
+        );
+
+        /***/
+      },
+
+    /***/ './src/components/MemetrisSpectate.js':
+      /*!********************************************!*\
+  !*** ./src/components/MemetrisSpectate.js ***!
+  \********************************************/
+      /***/ (
+        __unused_webpack_module,
+        __webpack_exports__,
+        __webpack_require__
+      ) => {
+        'use strict';
+        eval(
+          '__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _MemetrisGrid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MemetrisGrid */ "./src/components/MemetrisGrid.js");\n/* harmony import */ var _MemetrisControls__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MemetrisControls */ "./src/components/MemetrisControls.js");\n/* harmony import */ var _MemetrisScore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MemetrisScore */ "./src/components/MemetrisScore.js");\n\n\n\n\n\n\nconst DEBUG_CONTROLS = true;\nfunction MemetrisSpectate({\n  socket\n}) {\n  const [state, setState] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)();\n  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {\n    socket.on(\'gamestate\', v => setState(v));\n    return () => socket.off(\'gamestate\');\n  }, [socket]);\n  if (state == null) {\n    return null;\n  }\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {\n    className: "root"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_MemetrisGrid__WEBPACK_IMPORTED_MODULE_1__["default"], {\n    grid: state.grid\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_MemetrisScore__WEBPACK_IMPORTED_MODULE_3__["default"], {\n    state: state\n  })), DEBUG_CONTROLS && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_MemetrisControls__WEBPACK_IMPORTED_MODULE_2__["default"], {\n    socket: socket\n  }));\n}\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MemetrisSpectate);\n\n//# sourceURL=webpack://memetris/./src/components/MemetrisSpectate.js?'
         );
 
         /***/
