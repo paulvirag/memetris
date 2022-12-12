@@ -2,16 +2,18 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 
-const INTERVAL_LOW_MS = 30000;
-const INTERVAL_HIGH_MS = 90000;
+const SHOW_INTERVAL_LOW_MS = 5000;
+const SHOW_INTERVAL_HIGH_MS = 10000;
+const HIDE_INTERVAL_LOW_MS = 30000;
+const HIDE_INTERVAL_HIGH_MS = 90000;
 
 function MemetrisAd() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const randomInterval =
-      Math.floor(Math.random() * (INTERVAL_HIGH_MS - INTERVAL_LOW_MS)) +
-      INTERVAL_LOW_MS;
+    const low = visible ? SHOW_INTERVAL_LOW_MS : HIDE_INTERVAL_LOW_MS;
+    const high = visible ? SHOW_INTERVAL_HIGH_MS : HIDE_INTERVAL_HIGH_MS;
+    const randomInterval = Math.floor(Math.random() * (high - low)) + low;
     const timeout = setTimeout(() => setVisible(v => !v), randomInterval);
     return () => clearTimeout(timeout);
   }, [visible]);
