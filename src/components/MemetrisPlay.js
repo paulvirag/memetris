@@ -2,7 +2,18 @@
 
 import React, { useState, useEffect } from 'react';
 
-const caps = button => button[0].toUpperCase() + button.substr(1);
+const text = button => {
+  switch (button) {
+    case 'left':
+      return '⬅️';
+    case 'right':
+      return '➡️';
+    case 'down':
+      return '⬇️';
+    case 'a':
+      return '🅰️';
+  }
+};
 
 function MemetrisPlay({ socket }) {
   const [button, setButton] = useState();
@@ -21,10 +32,8 @@ function MemetrisPlay({ socket }) {
   }
 
   return (
-    <div className="control-bar">
-      <button className="control-button" onClick={() => socket.emit(button)}>
-        {caps(button)}
-      </button>
+    <div className="play-button" onClick={() => socket.emit(button)}>
+      {text(button)}
     </div>
   );
 }

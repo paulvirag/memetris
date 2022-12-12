@@ -111,3 +111,11 @@ body {
   padding: 4px 10px;
   margin: 0 2px;
 }
+
+/*
+  Play button
+*/
+
+.play-button {
+  font-size: 72pt;
+}
