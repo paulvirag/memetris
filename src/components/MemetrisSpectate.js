@@ -1,10 +1,11 @@
 'use strict';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import MemetrisGrid from './MemetrisGrid';
 import MemetrisControls from './MemetrisControls';
 import MemetrisScore from './MemetrisScore';
+import MemetrisAd from './MemetrisAd';
 
 const DEBUG_CONTROLS = false;
 
@@ -32,6 +33,7 @@ function MemetrisSpectate({ socket }) {
         <MemetrisScore state={game} controllerState={controller} />
       </div>
       {DEBUG_CONTROLS && <MemetrisControls socket={socket} />}
+      <MemetrisAd />
     </>
   );
 }

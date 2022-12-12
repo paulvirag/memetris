@@ -39,6 +39,16 @@ audio {
 }
 
 /*
+  Ad
+*/
+
+.ad {
+  position: absolute;
+  bottom: 30px;
+  width: 500px;
+}
+
+/*
   Game grid
 */
 
