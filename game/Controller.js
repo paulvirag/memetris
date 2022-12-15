@@ -63,7 +63,7 @@ class Controller {
     const expired = [...this._clients.values()].filter(
       socket => !socket.connected
     );
-    expired.forEach(socket => socket.disconnect());
+    expired.forEach(socket => this.disconnect(socket));
   }
 }
 
