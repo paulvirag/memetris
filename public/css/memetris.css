@@ -133,4 +133,5 @@ audio {
 
 .play-button {
   font-size: 144pt;
+  user-select: none;
 }
