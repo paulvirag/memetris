@@ -21,16 +21,27 @@ function MemetrisSpectate({ socket }) {
     return null;
   }
 
-  const { game, controller } = state;
-  if (game == null) {
-    return null;
-  }
+  const { game1, game2, controller } = state;
 
   return (
     <>
       <div className="root">
-        <MemetrisGrid grid={game.grid} />
-        <MemetrisScore state={game} controllerState={controller} />
+        {game1 && (
+          <>
+            <MemetrisScore
+              game={game1}
+              controller={controller}
+              showAudio={true}
+            />
+            <MemetrisGrid grid={game1.grid} />
+          </>
+        )}
+        {game2 && (
+          <>
+            <MemetrisGrid grid={game2.grid} controller={controller} />
+            <MemetrisScore game={game2} />
+          </>
+        )}
       </div>
       {DEBUG_CONTROLS && <MemetrisControls socket={socket} />}
       <MemetrisAd />

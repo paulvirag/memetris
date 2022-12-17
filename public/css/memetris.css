@@ -54,6 +54,7 @@ audio {
 
 .grid {
   border: 1px solid black;
+  margin: 0px 20px;
 }
 
 .grid-row {
@@ -109,7 +110,7 @@ audio {
   justify-content: space-between;
 }
 
-.score-leaderboard-section {
+.score-section:last-child {
   min-height: 200px;
 }
 

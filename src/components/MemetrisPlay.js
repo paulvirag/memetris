@@ -31,10 +31,14 @@ function MemetrisPlay({ socket }) {
     return <div>Waiting...</div>;
   }
 
+  const [team, type] = button.split('-');
   return (
-    <div className="play-button" onClick={() => socket.emit(button)}>
-      {text(button)}
-    </div>
+    <>
+      <div className="play-team">{team}</div>
+      <div className="play-button" onClick={() => socket.emit(button)}>
+        {text(type)}
+      </div>
+    </>
   );
 }
 

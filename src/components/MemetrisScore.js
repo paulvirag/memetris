@@ -2,13 +2,15 @@
 
 import React from 'react';
 
-function MemetrisScore({ state, controllerState }) {
-  const { score, level, lines, leaderboard } = state;
+function MemetrisScore({ game, controller, showAudio = false }) {
+  const { score, level, lines } = game;
 
   return (
     <div className="score-pane">
-      <div>
-        <audio src="/sounds/tetris.m4a" autoplay loop controls="none"></audio>
+      <div className="score-section">
+        {showAudio && (
+          <audio src="/sounds/tetris.m4a" autoplay loop controls="none"></audio>
+        )}
         <h2>Score</h2>
         <p>{score}</p>
         <h2>Level</h2>
@@ -16,17 +18,9 @@ function MemetrisScore({ state, controllerState }) {
         <h2>Lines</h2>
         <p>{lines}</p>
       </div>
-      <div>
+      <div className="score-section">
         <h3>Inputs assigned</h3>
-        {controllerState?.join(', ')}
-      </div>
-      <div className="score-leaderboard-section">
-        <h3>High scores</h3>
-        {leaderboard.map((v, i) => (
-          <p key={i}>
-            {i + 1}. {v}
-          </p>
-        ))}
+        {controller?.join(', ')}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-const DEFAULT_POOL = ['left', 'right', 'down', 'a'];
+const DEFAULT_POOL = ['t1-left', 't1-right', 't1-down', 't1-a', 't2-left', 't2-right', 't2-down', 't2-a'];
 const EXPIRE_INTERVAL_MS = 3000;
 
 class Controller {

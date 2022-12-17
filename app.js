@@ -21,12 +21,16 @@ server.listen(PORT, () => console.log(`Server started on localhost:${PORT}`));
 
 const onChange = () =>
   io.emit('gamestate', {
-    game: game?.state(),
+    game1: game1?.state(),
+    game2: game2?.state(),
     controller: controller?.state(),
   });
 
-const game = new Game();
-game.setListener(onChange);
+const game1 = new Game();
+game1.setListener(onChange);
+
+const game2 = new Game();
+game2.setListener(onChange);
 
 const controller = new Controller();
 controller.setListener(onChange);
@@ -35,9 +39,15 @@ io.on('connection', socket => {
   socket.on('requestbutton', () => controller.connect(socket));
   socket.on('disconnect', () => controller.disconnect(socket));
 
-  socket.on('a', () => game.a());
-  socket.on('left', () => game.left());
-  socket.on('right', () => game.right());
-  socket.on('down', () => game.down());
-  socket.on('up', () => game.up());
+  socket.on('t1-a', () => game1.a());
+  socket.on('t1-left', () => game1.left());
+  socket.on('t1-right', () => game1.right());
+  socket.on('t1-down', () => game1.down());
+  socket.on('t1-up', () => game1.up());
+
+  socket.on('t2-a', () => game2.a());
+  socket.on('t2-left', () => game2.left());
+  socket.on('t2-right', () => game2.right());
+  socket.on('t2-down', () => game2.down());
+  socket.on('t2-up', () => game2.up());
 });
