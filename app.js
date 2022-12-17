@@ -35,6 +35,9 @@ game2.setListener(onChange);
 game1.setNewGameListener(() => game2.restart());
 game2.setNewGameListener(() => game1.restart());
 
+game1.setGarbageListener(c => game2.garbage(c));
+game2.setGarbageListener(c => game1.garbage(c));
+
 const controller = new Controller();
 controller.setListener(onChange);
 

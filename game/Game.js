@@ -62,6 +62,10 @@ class Game {
     this._onNewGame = onNewGame;
   }
 
+  setGarbageListener(onGarbage) {
+    this._onGarbage = onGarbage;
+  }
+
   state() {
     const grid = copy(this._grid);
     place(grid, this._piece);
@@ -75,6 +79,13 @@ class Game {
 
   restart() {
     this._newGame();
+  }
+
+  garbage(c) {
+    this._gameState = {
+      ...this._gameState,
+      pendingGarbage: this._gameState.pendingGarbage + c,
+    };
   }
 
   //
@@ -164,6 +175,7 @@ class Game {
       level: 1,
       lines: 0,
       score: 0,
+      pendingGarbage: 0,
     };
 
     this._spawnPiece();
@@ -202,6 +214,7 @@ class Game {
     this._cleanupPiece();
 
     this._clearLines();
+    this._addGarbage();
     this._spawnPiece();
   }
 
@@ -222,12 +235,35 @@ class Game {
       level: newLevel,
       lines: newLines,
       score: this._gameState.score + LINES_TO_POINTS[clearedLines],
+      pendingGarbage: this._gameState.pendingGarbage,
     };
+    this._onGarbage?.(Math.max(clearedLines - 1, 0));
 
     this._grid = Array(clearedLines)
       .fill(0)
       .map(_ => Array(COLS).fill(0))
       .concat(this._grid);
+  }
+
+  _addGarbage() {
+    const garbageLines = Array(this._gameState.pendingGarbage)
+      .fill(0)
+      .map(_ => {
+        const hole = Math.floor(Math.random() * COLS);
+        const line = Array(COLS)
+          .fill(0)
+          .map(_ => Math.floor(Math.random() * pieces.length) + 1);
+        line[hole] = 0;
+        return line;
+      });
+
+    this._grid = this._grid
+      .slice(this._gameState.pendingGarbage)
+      .concat(garbageLines);
+    this._gameState = {
+      ...this._gameState,
+      pendingGarbage: 0,
+    };
   }
 }
 
