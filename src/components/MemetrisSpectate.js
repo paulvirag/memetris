@@ -21,18 +21,14 @@ function MemetrisSpectate({ socket }) {
     return null;
   }
 
-  const { game1, game2, controller } = state;
+  const { game1, game2 } = state;
 
   return (
     <>
       <div className="root">
         {game1 && (
           <>
-            <MemetrisScore
-              game={game1}
-              controller={controller}
-              showAudio={true}
-            />
+            <MemetrisScore game={game1} showAudio={true} />
             <div className="grid-container">
               <div className="team-label t1">Team 1</div>
               <MemetrisGrid grid={game1.grid} />
@@ -43,7 +39,7 @@ function MemetrisSpectate({ socket }) {
           <>
             <div className="grid-container">
               <div className="team-label t2">Team 2</div>
-              <MemetrisGrid grid={game2.grid} controller={controller} />
+              <MemetrisGrid grid={game2.grid} />
             </div>
             <MemetrisScore game={game2} />
           </>

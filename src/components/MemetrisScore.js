@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-function MemetrisScore({ game, controller, showAudio = false }) {
+function MemetrisScore({ game, showAudio = false }) {
   const { score, level, lines } = game;
 
   return (
@@ -17,10 +17,6 @@ function MemetrisScore({ game, controller, showAudio = false }) {
         <p>{level}</p>
         <h2>Lines</h2>
         <p>{lines}</p>
-      </div>
-      <div className="score-section">
-        <h3>Inputs assigned</h3>
-        {controller?.join(', ')}
       </div>
     </div>
   );
