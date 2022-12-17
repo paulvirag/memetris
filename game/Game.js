@@ -58,6 +58,10 @@ class Game {
     this._onChange = onChange;
   }
 
+  setNewGameListener(onNewGame) {
+    this._onNewGame = onNewGame;
+  }
+
   state() {
     const grid = copy(this._grid);
     place(grid, this._piece);
@@ -67,6 +71,10 @@ class Game {
       grid,
       leaderboard: this._leaderboard,
     };
+  }
+
+  restart() {
+    this._newGame();
   }
 
   //
@@ -144,6 +152,10 @@ class Game {
         .slice(0, MAX_LEADERBOARD_SIZE);
     }
 
+    if (this._piece) {
+      this._cleanupPiece();
+    }
+
     this._grid = Array(ROWS)
       .fill(0)
       .map(_ => Array(COLS).fill(0));
@@ -171,6 +183,7 @@ class Game {
 
     if (!tryPlace(this._grid, piece)) {
       this._newGame();
+      this._onNewGame?.();
       return;
     }
 
@@ -186,11 +199,15 @@ class Game {
 
   _landPiece() {
     place(this._grid, this._piece);
-    clearInterval(this._piece.interval);
-    this._piece = null;
+    this._cleanupPiece();
 
     this._clearLines();
     this._spawnPiece();
+  }
+
+  _cleanupPiece() {
+    clearInterval(this._piece.interval);
+    this._piece = null;
   }
 
   _clearLines() {

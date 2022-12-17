@@ -32,6 +32,9 @@ game1.setListener(onChange);
 const game2 = new Game();
 game2.setListener(onChange);
 
+game1.setNewGameListener(() => game2.restart());
+game2.setNewGameListener(() => game1.restart());
+
 const controller = new Controller();
 controller.setListener(onChange);
 
