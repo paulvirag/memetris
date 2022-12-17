@@ -33,12 +33,18 @@ function MemetrisSpectate({ socket }) {
               controller={controller}
               showAudio={true}
             />
-            <MemetrisGrid grid={game1.grid} />
+            <div className="grid-container">
+              <div className="team-label t1">Team 1</div>
+              <MemetrisGrid grid={game1.grid} />
+            </div>
           </>
         )}
         {game2 && (
           <>
-            <MemetrisGrid grid={game2.grid} controller={controller} />
+            <div className="grid-container">
+              <div className="team-label t2">Team 2</div>
+              <MemetrisGrid grid={game2.grid} controller={controller} />
+            </div>
             <MemetrisScore game={game2} />
           </>
         )}

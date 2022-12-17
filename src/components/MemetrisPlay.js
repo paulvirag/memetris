@@ -32,9 +32,10 @@ function MemetrisPlay({ socket }) {
   }
 
   const [team, type] = button.split('-');
+  const teamName = team === 't1' ? 'Team 1' : 'Team 2';
   return (
     <>
-      <div className="play-team">{team}</div>
+      <div className={'team-label ' + team}>{teamName}</div>
       <div className="play-button" onClick={() => socket.emit(button)}>
         {text(type)}
       </div>
