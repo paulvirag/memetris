@@ -1,4 +1,13 @@
-const DEFAULT_POOL = ['t1-left', 't1-right', 't1-down', 't1-a', 't2-left', 't2-right', 't2-down', 't2-a'];
+const DEFAULT_POOL = [
+  't1-left',
+  't1-right',
+  't1-down',
+  't1-a',
+  't2-left',
+  't2-right',
+  't2-down',
+  't2-a',
+];
 const EXPIRE_INTERVAL_MS = 3000;
 
 class Controller {
@@ -7,6 +16,7 @@ class Controller {
     this._clients = new Map();
     this._queue = [];
     setInterval(() => this._expireClients(), EXPIRE_INTERVAL_MS);
+    this._expirations = 0;
   }
 
   setListener(onChange) {
@@ -64,6 +74,8 @@ class Controller {
       socket => !socket.connected
     );
     expired.forEach(socket => this.disconnect(socket));
+    this._expirations += expired.length;
+    console.log('Total expired clients: ' + this._expirations);
   }
 }
 
