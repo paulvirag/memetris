@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const SHOW_INTERVAL_LOW_MS = 5000;
 const SHOW_INTERVAL_HIGH_MS = 10000;

@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const path = require('path');
 const http = require('http');
@@ -6,7 +8,7 @@ const Game = require('./game/Game');
 const Controller = require('./game/Controller');
 
 const PORT = process.env.PORT || 5001;
-const GAMES = 2;
+const GAMES = Number(process.env.GAMES || 1);
 
 const app = express();
 const server = http.createServer(app);
@@ -19,6 +21,12 @@ app
   .use(express.static(path.join(__dirname, 'public')));
 
 server.listen(PORT, () => console.log(`Server started on localhost:${PORT}`));
+
+const clientConfig = {
+  debugControls: process.env.DEBUG_CONTROLS === 'true',
+  showAds: process.env.SHOW_ADS === 'true',
+  games: GAMES,
+};
 
 const onChange = () =>
   io.emit('gamestate', {
@@ -45,6 +53,8 @@ controller.setListener(onChange);
 io.on('connection', socket => {
   socket.on('requestbutton', () => controller.connect(socket));
   socket.on('disconnect', () => controller.disconnect(socket));
+
+  socket.on('requestconfig', () => socket.emit('config', clientConfig));
 
   Array(GAMES)
     .fill(0)

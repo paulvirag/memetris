@@ -3,13 +3,11 @@
 import React, { useState, useEffect } from 'react';
 
 import MemetrisGrid from './MemetrisGrid';
-import MemetrisControls from './MemetrisControls';
+import MemetrisControls from './MemetrisDebugControls';
 import MemetrisScore from './MemetrisScore';
 import MemetrisAd from './MemetrisAd';
 
-const DEBUG_CONTROLS = false;
-
-function MemetrisSpectate({ socket }) {
+function MemetrisSpectate({ socket, config }) {
   const [state, setState] = useState();
 
   useEffect(() => {
@@ -32,6 +30,9 @@ function MemetrisSpectate({ socket }) {
             <div className="grid-container">
               <div className="team-label t1">Team 1</div>
               <MemetrisGrid grid={game1.grid} />
+              {config.debugControls && (
+                <MemetrisControls socket={socket} index={1} />
+              )}
             </div>
           </>
         )}
@@ -40,13 +41,15 @@ function MemetrisSpectate({ socket }) {
             <div className="grid-container">
               <div className="team-label t2">Team 2</div>
               <MemetrisGrid grid={game2.grid} />
+              {config.debugControls && (
+                <MemetrisControls socket={socket} index={2} />
+              )}
             </div>
             <MemetrisScore game={game2} />
           </>
         )}
       </div>
-      {DEBUG_CONTROLS && <MemetrisControls socket={socket} />}
-      <MemetrisAd />
+      {config.showAds && <MemetrisAd />}
     </>
   );
 }

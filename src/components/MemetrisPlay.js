@@ -19,12 +19,12 @@ function MemetrisPlay({ socket }) {
   const [button, setButton] = useState();
 
   useEffect(() => {
-    socket.emit('requestbutton');
+    socket.on('assignbutton', v => setButton(v));
+    return () => socket.off('assignbutton');
   }, [socket]);
 
   useEffect(() => {
-    socket.on('assignbutton', v => setButton(v));
-    return () => socket.off('assignbutton');
+    socket.emit('requestbutton');
   }, [socket]);
 
   if (button == null) {
