@@ -1,16 +1,10 @@
-const DEFAULT_POOL = [
-  't1-left',
-  't1-right',
-  't1-down',
-  't1-a',
-  't2-left',
-  't2-right',
-  't2-down',
-  't2-a',
-];
+const BUTTONS = ['left', 'right', 'down', 'a'];
 class Controller {
-  constructor() {
-    this._pool = [...DEFAULT_POOL];
+  constructor(numGames) {
+    this._defaultPool = Array(numGames)
+      .fill(0)
+      .flatMap((_, i) => BUTTONS.map(button => `t${i + 1}-${button}`));
+    this._pool = [...this._defaultPool];
     this._clients = new Map();
     this._queue = [];
   }
@@ -46,7 +40,7 @@ class Controller {
   }
 
   state() {
-    return DEFAULT_POOL.filter(x => !this._pool.includes(x));
+    return this._defaultPool.filter(x => !this._pool.includes(x));
   }
 
   _assign(socket) {
@@ -55,7 +49,7 @@ class Controller {
     this._pool = this._pool.filter(x => x != button);
     this._clients.set(button, socket);
 
-    socket.emit('assign', button);
+    socket.emit('assignbutton', button);
     this._onChange?.();
   }
 

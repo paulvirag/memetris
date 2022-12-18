@@ -23,8 +23,8 @@ function MemetrisPlay({ socket }) {
   }, [socket]);
 
   useEffect(() => {
-    socket.on('assign', v => setButton(v));
-    return () => socket.off('assign');
+    socket.on('assignbutton', v => setButton(v));
+    return () => socket.off('assignbutton');
   }, [socket]);
 
   if (button == null) {

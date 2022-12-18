@@ -6,6 +6,7 @@ const Game = require('./game/Game');
 const Controller = require('./game/Controller');
 
 const PORT = process.env.PORT || 5001;
+const GAMES = 2;
 
 const app = express();
 const server = http.createServer(app);
@@ -38,22 +39,23 @@ game2.setNewGameListener(() => game1.restart());
 game1.setGarbageListener(c => game2.garbage(c));
 game2.setGarbageListener(c => game1.garbage(c));
 
-const controller = new Controller();
+const controller = new Controller(GAMES);
 controller.setListener(onChange);
 
 io.on('connection', socket => {
   socket.on('requestbutton', () => controller.connect(socket));
   socket.on('disconnect', () => controller.disconnect(socket));
 
-  socket.on('t1-a', () => game1.a());
-  socket.on('t1-left', () => game1.left());
-  socket.on('t1-right', () => game1.right());
-  socket.on('t1-down', () => game1.down());
-  socket.on('t1-up', () => game1.up());
+  Array(GAMES)
+    .fill(0)
+    .map((_, i) => {
+      const game = i === 0 ? game1 : game2;
+      const gameIndex = i + 1;
 
-  socket.on('t2-a', () => game2.a());
-  socket.on('t2-left', () => game2.left());
-  socket.on('t2-right', () => game2.right());
-  socket.on('t2-down', () => game2.down());
-  socket.on('t2-up', () => game2.up());
+      socket.on(`t${gameIndex}-a`, () => game.a());
+      socket.on(`t${gameIndex}-left`, () => game.left());
+      socket.on(`t${gameIndex}-right`, () => game.right());
+      socket.on(`t${gameIndex}-down`, () => game.down());
+      socket.on(`t${gameIndex}-up`, () => game.up());
+    });
 });
