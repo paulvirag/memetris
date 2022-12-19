@@ -42,7 +42,7 @@ function MemetrisPlay({ socket, config }) {
   return (
     <>
       {config.games > 1 && (
-        <div className={'team-label ' + name}>{teamName}</div>
+        <div className={'team-label team-' + name}>{teamName}</div>
       )}
       <div className="play-button" onClick={() => socket.emit(button)}>
         {text(type)}

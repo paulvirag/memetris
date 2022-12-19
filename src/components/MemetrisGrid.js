@@ -2,13 +2,24 @@
 
 import React from 'react';
 
-function MemetrisGrid({ grid }) {
+import cx from '../util/cx';
+
+function MemetrisGrid({ game }) {
+  const { grid, pendingGarbage } = game;
   return (
     <div className="grid">
       {grid.map((row, i) => (
         <div className="grid-row" key={i}>
           {row.map((v, j) => (
-            <div className={'grid-block color' + v} key={j} />
+            <div
+              className={cx({
+                'grid-block': true,
+                [`piece${v}`]: true,
+                [`shake${((i + j) % 4) + 1}`]: true,
+                shaking: grid.length - i <= pendingGarbage,
+              })}
+              key={j}
+            />
           ))}
         </div>
       ))}

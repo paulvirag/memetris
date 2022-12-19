@@ -33,19 +33,30 @@ body {
   align-items: stretch;
 }
 
-audio {
-  height: 30px;
-  width: 100px;
-}
-
 /*
-  Ad
+  Team label
 */
 
-.ad {
-  position: absolute;
-  bottom: 30px;
-  width: 500px;
+.team-label {
+  margin-bottom: 10px;
+  font-size: 32px;
+  text-align: center;
+}
+
+.team-t1 {
+  color: #ff0d15;
+}
+
+.team-t2 {
+  color: #51ab37;
+}
+
+.team-t3 {
+  color: #00e0fc;
+}
+
+.team-t4 {
+  color: #fffc43;
 }
 
 /*
@@ -55,28 +66,6 @@ audio {
 .grid-container {
   display: flex;
   flex-direction: column;
-}
-
-.team-label {
-  margin-bottom: 10px;
-  font-size: 32px;
-  text-align: center;
-}
-
-.t1 {
-  color: #ff0d15;
-}
-
-.t2 {
-  color: #51ab37;
-}
-
-.t3 {
-  color: #00e0fc;
-}
-
-.t4 {
-  color: #fffc43;
 }
 
 .grid {
@@ -95,34 +84,73 @@ audio {
 }
 
 /*
+  Shake animation
+*/
+
+.shaking {
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+}
+
+.shake1 {
+  animation-delay: 0s;
+}
+
+.shake2 {
+  animation-delay: -0.1s;
+}
+
+.shake3 {
+  animation-delay: -0.2s;
+}
+
+.shake4 {
+  animation-delay: -0.3s;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -1px) rotate(-1deg); }
+  20% { transform: translate(-2px, 0px) rotate(1deg); }
+  30% { transform: translate(2px, 1px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 1px) rotate(-1deg); }
+  60% { transform: translate(-2px, 1px) rotate(0deg); }
+  70% { transform: translate(2px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 1px) rotate(0deg); }
+  100% { transform: translate(1px, -1px) rotate(-1deg); }
+}
+
+/*
   Block colors
 */
 
-.color1 {
+.piece1 {
   background-color: #fffc43;
 }
 
-.color2 {
+.piece2 {
   background-color: #00e0fc;
 }
 
-.color3 {
+.piece3 {
   background-color: #ff0d15;
 }
 
-.color4 {
+.piece4 {
   background-color: #51ab37;
 }
 
-.color5 {
+.piece5 {
   background-color: #ff8128;
 }
 
-.color6 {
+.piece6 {
   background-color: #ff4daf;
 }
 
-.color7 {
+.piece7 {
   background-color: #9f1687;
 }
 
@@ -137,12 +165,27 @@ audio {
   justify-content: space-between;
 }
 
+audio {
+  height: 30px;
+  width: 100px;
+}
+
 .score-section:last-child {
   min-height: 200px;
 }
 
 /*
-  Controls
+  Ad
+*/
+
+.ad {
+  position: absolute;
+  bottom: 30px;
+  width: 500px;
+}
+
+/*
+  Debug controls
 */
 
 .control-bar {
