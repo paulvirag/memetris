@@ -122,21 +122,7 @@ class Game {
     this._onChange?.();
   }
 
-  up() {
-    while (this._downOne()) {}
-    this._onChange?.();
-  }
-
   down() {
-    this._downOne();
-    this._onChange?.();
-  }
-
-  //
-  // Movement helpers
-  //
-
-  _downOne() {
     const moved = this._move({
       ...this._piece,
       row: this._piece.row + 1,
@@ -144,8 +130,12 @@ class Game {
     if (!moved) {
       this._landPiece();
     }
-    return moved;
+    this._onChange?.();
   }
+
+  //
+  // Movement helpers
+  //
 
   _move(newPiece) {
     const canPlace = tryPlace(this._grid, newPiece);

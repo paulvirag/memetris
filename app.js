@@ -54,7 +54,6 @@ io.on('connect', socket => {
     socket.on(`${game.name()}-left`, () => game.left());
     socket.on(`${game.name()}-right`, () => game.right());
     socket.on(`${game.name()}-down`, () => game.down());
-    socket.on(`${game.name()}-up`, () => game.up());
   });
 
   socket.on('disconnect', () => {
