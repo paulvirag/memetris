@@ -1,14 +1,22 @@
 # memetris
 
-Multiplayer tetris where everybody gets one button. Best played with 3 friends in the same room.
+Multiplayer tetris where everybody gets one button. Best played with 7 friends in the same room.
+
+![screenshot](https://github.com/paulvirag/memetris/blob/master/images/screenshot.jpg?raw=true)
 
 ## How to Play
 
 - Open the spectate page (https://memetris.herokuapp.com/spectate) on a shared screen, like a TV
 - Have each person open the game (https://memetris.herokuapp.com) on their phone
 - Each player has a single button, and you're all playing the same Tetris instance
-- You'll need at least 4 players to actually play (up, down, left, and A)
-- If more than 4 players load the game, the extra players will be queued up until someone quits
+- You'll need at least 8 players to actually play (up, down, left, and A for each team)
+- If more than 8 players load the game, the extra players will be queued up until someone quits
+
+## Features
+
+- Scoring and game speed are roughly based on the original Tetris
+- Music is the "Tetris A" theme from the original game
+- Clearing more than 1 line at a time sends garbage lines to the opposing team
 
 ## Local Development
 ### Initial Setup
