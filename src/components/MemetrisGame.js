@@ -24,7 +24,9 @@ export default function MemetrisGame({ socket, config, i }) {
     <>
       <MemetrisScore game={game} showAudio={showAudio} />
       <div className="grid-container">
-        <div className={'team-label ' + name}>Team {i + 1}</div>
+        {config.games > 1 && (
+          <div className={'team-label ' + name}>Team {i + 1}</div>
+        )}
         <MemetrisGrid grid={game.grid} />
         {config.debugControls && (
           <MemetrisDebugControls socket={socket} name={name} />

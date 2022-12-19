@@ -15,7 +15,7 @@ const text = button => {
   }
 };
 
-function MemetrisPlay({ socket }) {
+function MemetrisPlay({ socket, config }) {
   const [button, setButton] = useState();
 
   useEffect(() => {
@@ -25,7 +25,7 @@ function MemetrisPlay({ socket }) {
     return () => socket.off('assignbutton');
   }, [socket]);
 
-  if (button == null) {
+  if (button == null || config == null) {
     return <div>Waiting...</div>;
   }
 
@@ -33,7 +33,9 @@ function MemetrisPlay({ socket }) {
   const teamName = 'Team ' + name[1];
   return (
     <>
-      <div className={'team-label ' + name}>{teamName}</div>
+      {config.games > 1 && (
+        <div className={'team-label ' + name}>{teamName}</div>
+      )}
       <div className="play-button" onClick={() => socket.emit(button)}>
         {text(type)}
       </div>
