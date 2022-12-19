@@ -16,6 +16,10 @@ function MemetrisRoot() {
     return () => socket.off('config');
   }, [socket]);
 
+  if (config == null) {
+    return null;
+  }
+
   return window.location.href.includes('spectate') ? (
     <MemetrisSpectate socket={socket} config={config} />
   ) : (

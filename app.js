@@ -5,7 +5,8 @@ const path = require('path');
 const http = require('http');
 const { Server } = require('socket.io');
 const Game = require('./game/Game');
-const Controller = require('./game/Controller');
+const Controller = require('./server/Controller');
+const Spectator = require('./server/Spectator');
 
 const PORT = process.env.PORT || 5001;
 const GAMES = Number(process.env.GAMES || 1);
@@ -32,18 +33,19 @@ const games = Array(GAMES)
   .fill(0)
   .map((_, i) => new Game(`t${i + 1}`));
 
+const controller = new Controller(games);
+const spectator = new Spectator(games);
+
 games.forEach(game => {
   const otherGames = games.filter(x => x !== game);
-  game.setListener(() => io.emit(`${game.name()}-gamestate`, game.state()));
+  game.setListener(() => spectator.update(game));
   game.setNewGameListener(() => otherGames.forEach(x => x.restart()));
   game.setGarbageListener(c => otherGames.forEach(x => x.garbage(c)));
 });
 
-const controller = new Controller(games);
-
-io.on('connection', socket => {
+io.on('connect', socket => {
   socket.on('requestbutton', () => controller.connect(socket));
-  socket.on('disconnect', () => controller.disconnect(socket));
+  socket.on('requestgamestate', name => spectator.connect(socket, name));
 
   socket.on('requestconfig', () => socket.emit('config', clientConfig));
 
@@ -53,5 +55,10 @@ io.on('connection', socket => {
     socket.on(`${game.name()}-right`, () => game.right());
     socket.on(`${game.name()}-down`, () => game.down());
     socket.on(`${game.name()}-up`, () => game.up());
+  });
+
+  socket.on('disconnect', () => {
+    controller.disconnect(socket);
+    spectator.disconnect(socket);
   });
 });

@@ -13,6 +13,8 @@ export default function MemetrisGame({ socket, config, i }) {
 
   useEffect(() => {
     socket.on(`${name}-gamestate`, v => setGame(v));
+    socket.emit('requestgamestate', name);
+
     return () => socket.off(`${name}-gamestate`);
   }, [socket]);
 

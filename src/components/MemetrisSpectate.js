@@ -6,12 +6,7 @@ import MemetrisAd from './MemetrisAd';
 import MemetrisGame from './MemetrisGame';
 
 function MemetrisSpectate({ socket, config }) {
-  if (config == null) {
-    return null;
-  }
-
   const { games } = config;
-
   return (
     <>
       <div className="root">
