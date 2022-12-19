@@ -11,11 +11,9 @@ function MemetrisRoot() {
 
   useEffect(() => {
     socket.on('config', c => setConfig(c));
-    return () => socket.off('config');
-  }, [socket]);
-
-  useEffect(() => {
     socket.emit('requestconfig');
+
+    return () => socket.off('config');
   }, [socket]);
 
   return window.location.href.includes('spectate') ? (

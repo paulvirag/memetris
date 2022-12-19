@@ -45,8 +45,10 @@ function place(grid, piece) {
 }
 
 class Game {
-  constructor() {
+  constructor(name) {
     this._leaderboard = [];
+    this._name = name;
+
     this._newGame();
   }
 
@@ -64,6 +66,10 @@ class Game {
 
   setGarbageListener(onGarbage) {
     this._onGarbage = onGarbage;
+  }
+
+  name() {
+    return this._name;
   }
 
   state() {

@@ -1,9 +1,9 @@
 const BUTTONS = ['left', 'right', 'down', 'a'];
 class Controller {
-  constructor(numGames) {
-    this._defaultPool = Array(numGames)
-      .fill(0)
-      .flatMap((_, i) => BUTTONS.map(button => `t${i + 1}-${button}`));
+  constructor(games) {
+    this._defaultPool = games.flatMap(game =>
+      BUTTONS.map(button => `${game.name()}-${button}`)
+    );
     this._pool = [...this._defaultPool];
     this._clients = new Map();
     this._queue = [];

@@ -2,30 +2,30 @@
 
 import React from 'react';
 
-function MemetrisDebugControls({ socket, index }) {
+function MemetrisDebugControls({ socket, name }) {
   return (
     <div className="control-bar">
       <button
         className="control-button"
-        onClick={() => socket.emit(`t${index}-left`)}
+        onClick={() => socket.emit(`${name}-left`)}
       >
         Left
       </button>
       <button
         className="control-button"
-        onClick={() => socket.emit(`t${index}-right`)}
+        onClick={() => socket.emit(`${name}-right`)}
       >
         Right
       </button>
       <button
         className="control-button"
-        onClick={() => socket.emit(`t${index}-a`)}
+        onClick={() => socket.emit(`${name}-a`)}
       >
         A
       </button>
       <button
         className="control-button"
-        onClick={() => socket.emit(`t${index}-down`)}
+        onClick={() => socket.emit(`${name}-down`)}
       >
         Down
       </button>

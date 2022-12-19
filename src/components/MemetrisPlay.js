@@ -20,22 +20,20 @@ function MemetrisPlay({ socket }) {
 
   useEffect(() => {
     socket.on('assignbutton', v => setButton(v));
-    return () => socket.off('assignbutton');
-  }, [socket]);
-
-  useEffect(() => {
     socket.emit('requestbutton');
+
+    return () => socket.off('assignbutton');
   }, [socket]);
 
   if (button == null) {
     return <div>Waiting...</div>;
   }
 
-  const [team, type] = button.split('-');
-  const teamName = team === 't1' ? 'Team 1' : 'Team 2';
+  const [name, type] = button.split('-');
+  const teamName = 'Team ' + name[1];
   return (
     <>
-      <div className={'team-label ' + team}>{teamName}</div>
+      <div className={'team-label ' + name}>{teamName}</div>
       <div className="play-button" onClick={() => socket.emit(button)}>
         {text(type)}
       </div>

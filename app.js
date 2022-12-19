@@ -28,27 +28,18 @@ const clientConfig = {
   games: GAMES,
 };
 
-const onChange = () =>
-  io.emit('gamestate', {
-    game1: game1?.state(),
-    game2: game2?.state(),
-    controller: controller?.state(),
-  });
+const games = Array(GAMES)
+  .fill(0)
+  .map((_, i) => new Game(`t${i + 1}`));
 
-const game1 = new Game();
-game1.setListener(onChange);
+games.forEach(game => {
+  const otherGames = games.filter(x => x !== game);
+  game.setListener(() => io.emit(`${game.name()}-gamestate`, game.state()));
+  game.setNewGameListener(() => otherGames.forEach(x => x.restart()));
+  game.setGarbageListener(c => otherGames.forEach(x => x.garbage(c)));
+});
 
-const game2 = new Game();
-game2.setListener(onChange);
-
-game1.setNewGameListener(() => game2.restart());
-game2.setNewGameListener(() => game1.restart());
-
-game1.setGarbageListener(c => game2.garbage(c));
-game2.setGarbageListener(c => game1.garbage(c));
-
-const controller = new Controller(GAMES);
-controller.setListener(onChange);
+const controller = new Controller(games);
 
 io.on('connection', socket => {
   socket.on('requestbutton', () => controller.connect(socket));
@@ -56,16 +47,11 @@ io.on('connection', socket => {
 
   socket.on('requestconfig', () => socket.emit('config', clientConfig));
 
-  Array(GAMES)
-    .fill(0)
-    .map((_, i) => {
-      const game = i === 0 ? game1 : game2;
-      const gameIndex = i + 1;
-
-      socket.on(`t${gameIndex}-a`, () => game.a());
-      socket.on(`t${gameIndex}-left`, () => game.left());
-      socket.on(`t${gameIndex}-right`, () => game.right());
-      socket.on(`t${gameIndex}-down`, () => game.down());
-      socket.on(`t${gameIndex}-up`, () => game.up());
-    });
+  games.forEach(game => {
+    socket.on(`${game.name()}-a`, () => game.a());
+    socket.on(`${game.name()}-left`, () => game.left());
+    socket.on(`${game.name()}-right`, () => game.right());
+    socket.on(`${game.name()}-down`, () => game.down());
+    socket.on(`${game.name()}-up`, () => game.up());
+  });
 });
