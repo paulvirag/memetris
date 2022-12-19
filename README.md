@@ -2,7 +2,7 @@
 
 Multiplayer tetris where everybody gets one button. Best played with 7 friends in the same room.
 
-![screenshot](https://github.com/paulvirag/memetris/blob/master/images/screenshot.jpg?raw=true)
+![screenshot](https://github.com/paulvirag/memetris/blob/master/public/images/screenshot.jpg?raw=true)
 
 ## How to Play
 
