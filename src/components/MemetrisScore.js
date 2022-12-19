@@ -9,7 +9,7 @@ function MemetrisScore({ game, showAudio = false }) {
     <div className="score-pane">
       <div className="score-section">
         {showAudio && (
-          <audio src="/sounds/tetris.m4a" autoplay loop controls="none"></audio>
+          <audio src="/sounds/tetris.m4a" loop controls="none"></audio>
         )}
         <h2>Score</h2>
         <p>{score}</p>
