@@ -16,16 +16,24 @@ const text = button => {
 };
 
 function MemetrisPlay({ socket, config }) {
-  const [button, setButton] = useState();
+  const [button, setButton] = useState(null);
 
   useEffect(() => {
+    if (button !== null) {
+      return;
+    }
+
     socket.on('assignbutton', v => setButton(v));
     socket.emit('requestbutton');
 
     return () => socket.off('assignbutton');
+  }, [socket, button]);
+
+  useEffect(() => {
+    socket.on('disconnect', () => setButton(null));
   }, [socket]);
 
-  if (button == null || config == null) {
+  if (button === null) {
     return <div>Waiting...</div>;
   }
 
