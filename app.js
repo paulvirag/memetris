@@ -7,6 +7,7 @@ const { Server } = require('socket.io');
 const Game = require('./game/Game');
 const Controller = require('./server/Controller');
 const Spectator = require('./server/Spectator');
+const { getSeed } = require('./game/util');
 
 const PORT = process.env.PORT || 5001;
 const GAMES = Number(process.env.GAMES || 1);
@@ -29,9 +30,10 @@ const clientConfig = {
   games: GAMES,
 };
 
+const seed = getSeed();
 const games = Array(GAMES)
   .fill(0)
-  .map((_, i) => new Game(`t${i + 1}`));
+  .map((_, i) => new Game(`t${i + 1}`, seed));
 
 const controller = new Controller(games);
 const spectator = new Spectator(games);
@@ -39,7 +41,7 @@ const spectator = new Spectator(games);
 games.forEach(game => {
   const otherGames = games.filter(x => x !== game);
   game.setListener(() => spectator.update(game));
-  game.setNewGameListener(() => otherGames.forEach(x => x.restart()));
+  game.setNewGameListener((newSeed) => otherGames.forEach(x => x.restart(newSeed)));
   game.setGarbageListener(c => otherGames.forEach(x => x.garbage(c)));
 });
 

@@ -26,7 +26,9 @@ Multiplayer tetris where everybody gets one button. Best played with 7 friends i
 
 ### Developing
 - Run `npm run monitor` in a separate terminal tab to enable JS autoformatting
-- VS Code "F5" to run the app, or `npm run start` from the command line
+- VS Code "F5" to run the app, or `npm run build && npm run start` from the command line
+- Visit `http://localhost:5001/spectate` for the multiplayer view and `http://localhost:5001/play` for individual controls
+- Use the `.env` file to adjust values like debug controls and # of games
 
 ## Deploying
 - `git push heroku master` to push, CI/CD and deploy
